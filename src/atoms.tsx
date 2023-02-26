@@ -28,9 +28,13 @@ export const toDoSelector = selector({
   key: 'toDoSelector',
   get: ({ get }) => {
     const toDos = get(toDoState);
-    const category = get(categoryState);
-    const selectedList = toDos.filter((toDo) => toDo.category === category);
+    // const category = get(categoryState);
+    const listToDo = toDos.filter((toDo) => toDo.category === categories.TO_DO);
+    const listDoing = toDos.filter(
+      (toDo) => toDo.category === categories.DOING
+    );
+    const listDone = toDos.filter((toDo) => toDo.category === categories.DONE);
 
-    return selectedList;
+    return [listToDo, listDoing, listDone];
   },
 });
