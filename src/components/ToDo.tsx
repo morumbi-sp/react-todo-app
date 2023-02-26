@@ -9,17 +9,6 @@ function ToDo({ text, category, id }: IToDo) {
       currentTarget: { name },
     } = event;
 
-    /*  Nico's way
-    setToDos((oldToDos) => {
-      const targetIndex = oldToDos.findIndex((toDo) => toDo.id === id);
-      const newToDo = { text, id, category: name as IToDo['category'] };
-      return [
-        ...oldToDos.slice(0, targetIndex),
-        newToDo,
-        ...oldToDos.slice(targetIndex + 1),
-      ];
-    }); */
-
     setToDos((oldToDos) =>
       oldToDos.map((toDo) =>
         toDo.id === id ? { ...toDo, category: name as IToDo['category'] } : toDo
