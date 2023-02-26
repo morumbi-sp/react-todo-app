@@ -4,7 +4,7 @@ import CreateToDo from './CreateToDo';
 import ToDo from './ToDo';
 
 function ToDoList() {
-  const toDos = useRecoilValue(toDoSelector);
+  const [toDos, doing, done] = useRecoilValue(toDoSelector);
 
   return (
     <div>
@@ -13,19 +13,19 @@ function ToDoList() {
       <CreateToDo />
       <h3>To Do</h3>
       <ul>
-        {toDos[0].map((todo) => (
+        {toDos.map((todo) => (
           <ToDo key={todo.id} {...todo} />
         ))}
       </ul>
       <h3>Doing</h3>
       <ul>
-        {toDos[1].map((todo) => (
+        {doing.map((todo) => (
           <ToDo key={todo.id} {...todo} />
         ))}
       </ul>
       <h3>Done</h3>
       <ul>
-        {toDos[2].map((todo) => (
+        {done.map((todo) => (
           <ToDo key={todo.id} {...todo} />
         ))}
       </ul>
