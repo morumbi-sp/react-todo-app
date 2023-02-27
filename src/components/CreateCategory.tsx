@@ -1,6 +1,6 @@
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { useForm } from 'react-hook-form';
-import { categoryState, toDoState } from '../atoms';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { categoriesState, categoryState, toDoState } from '../atoms';
 import styled from 'styled-components';
 
 const InputForm = styled.form`
@@ -43,12 +43,13 @@ const InputBox = styled.input`
 `;
 
 interface IForm {
-  toDo: string;
+  category: string;
 }
 
 function CreateCategory() {
-  const setToDos = useSetRecoilState(toDoState);
+  const setCategory = useSetRecoilState(categoriesState);
   const category = useRecoilValue(categoryState);
+  const categories = useRecoilValue(categoriesState);
 
   const {
     register,
@@ -57,18 +58,22 @@ function CreateCategory() {
     setValue,
   } = useForm<IForm>();
 
-  const handleValid = (data: IForm) => {
+  const handleValid = (data: string) => {
     console.log('hi');
-    setValue('toDo', '');
-    setToDos((prevToDos) => [
-      { text: data.toDo, id: Date.now(), category },
-      ...prevToDos,
-    ]);
+    setValue('category', '');
+    setCategory((prevCategory) => [data, ...prevCategory]);
   };
+
+  const onSubmit: SubmitHandler<IForm> = (data) => {
+    handleValid(data.category);
+  };
+
+  console.log(categories);
+
   return (
-    <InputForm onSubmit={handleSubmit(handleValid)}>
+    <InputForm onSubmit={handleSubmit(onSubmit)}>
       <InputBox
-        {...register('toDo', {
+        {...register('category', {
           required: 'Pease Write a To Do',
         })}
         placeholder='Create new Category'

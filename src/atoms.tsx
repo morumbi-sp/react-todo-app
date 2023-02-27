@@ -32,15 +32,16 @@ export const categoryState = atom<categories>({
   default: categories.TO_DO,
 });
 
-const categoriesFromLocalStorage = JSON.parse(
-  localStorage.getItem('categoriesState') || '[]'
-);
+// const categoriesFromLocalStorage = JSON.parse(
+//   localStorage.getItem('categoriesState') || '[]'
+// );
 
 export const categoriesState = atom<string[]>({
   key: 'categoriesState',
-  default: categoriesFromLocalStorage.length
-    ? categoriesFromLocalStorage
-    : Object.values(categories),
+  default: Object.values(categories),
+  // default: categoriesFromLocalStorage.length
+  //   ? categoriesFromLocalStorage
+  //   : Object.values(categories),
   effects_UNSTABLE: [categoryData],
 });
 
