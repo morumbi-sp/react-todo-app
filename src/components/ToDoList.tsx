@@ -32,12 +32,15 @@ const Category = styled.h1`
 function ToDoList() {
   const [listToDo, listDoing, listDone] = useRecoilValue(toDoSelector);
 
+  const addNewCategoryHandler = () => {};
+
   return (
     <Container>
       <Header>
         <Title>To Do List</Title>
         <ThemeBtn />
       </Header>
+      <button>New Category</button>
       <hr />
       <Category>Doing</Category>
       {listDoing.map((toDo) => (
