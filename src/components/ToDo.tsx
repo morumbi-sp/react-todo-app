@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { categoriesEnum, categoriesState, IToDo, toDoState } from '../atoms';
+import { categoriesState, IToDo, toDoState } from '../atoms';
 
 const ToDoBox = styled.li`
   background-color: ${(props) => props.theme.boxColor};
@@ -89,7 +89,6 @@ function ToDo({ text, category, id }: IToDo) {
   const onDeleteHandler = () => {
     setToDos((prevToDos) => prevToDos.filter((toDo) => toDo.id !== id));
   };
-  console.log(categories);
   return (
     <ToDoBox>
       <span>{text}</span>

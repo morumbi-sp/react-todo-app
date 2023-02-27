@@ -32,8 +32,8 @@ const Category = styled.h1`
 
 function ToDoList() {
   const toDosObj = useRecoilValue(toDoSelector);
-  const categories = useRecoilValue(categoriesState);
-  console.log(toDosObj);
+
+  const customCategories = Object.keys(toDosObj).slice(0, -3);
 
   return (
     <Container>
@@ -56,7 +56,17 @@ function ToDoList() {
         <ToDo key={toDo.id} {...toDo} />
       ))}
 
-      {}
+      {customCategories.map((category) => {
+        return (
+          <>
+            <hr />
+            <Category key={category}>{category}</Category>
+            {toDosObj[category].map((toDo) => (
+              <ToDo key={toDo.id} {...toDo} />
+            ))}
+          </>
+        );
+      })}
 
       <hr />
       <Category>Done</Category>

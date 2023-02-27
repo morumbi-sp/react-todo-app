@@ -55,12 +55,6 @@ export const toDoSelector = selector({
       listObj[category] = sortedList;
     });
 
-    // const listToDo = toDos.filter((toDo) => toDo.category === categories.TO_DO);
-    // const listDoing = toDos.filter(
-    //   (toDo) => toDo.category === categories.DOING
-    // );
-    // const listDone = toDos.filter((toDo) => toDo.category === categories.DONE);
-
     return listObj;
   },
 });

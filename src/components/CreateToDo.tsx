@@ -50,12 +50,7 @@ function CreateToDo() {
   const setToDos = useSetRecoilState(toDoState);
   const category = useRecoilValue(categoryState);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setValue,
-  } = useForm<IForm>();
+  const { register, handleSubmit, setValue } = useForm<IForm>();
 
   const handleValid = (data: IForm) => {
     console.log('hi');

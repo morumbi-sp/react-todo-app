@@ -1,6 +1,6 @@
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { categoriesState, categoryState, toDoState } from '../atoms';
+import { categoriesState } from '../atoms';
 import styled from 'styled-components';
 
 const InputForm = styled.form`
@@ -49,12 +49,7 @@ interface IForm {
 function CreateCategory() {
   const setCategory = useSetRecoilState(categoriesState);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setValue,
-  } = useForm<IForm>();
+  const { register, handleSubmit, setValue } = useForm<IForm>();
 
   const handleValid = (data: string) => {
     console.log('hi');
