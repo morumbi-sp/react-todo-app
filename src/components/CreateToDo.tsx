@@ -2,9 +2,8 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useForm } from 'react-hook-form';
 import { categoryState, toDoState } from '../atoms';
 import styled from 'styled-components';
-import { useState } from 'react';
 
-const InputForm = styled.li`
+const InputForm = styled.form`
   background-color: ${(props) => props.theme.boxColor};
   display: flex;
   padding: 1rem;
@@ -50,7 +49,6 @@ interface IForm {
 function CreateToDo() {
   const setToDos = useSetRecoilState(toDoState);
   const category = useRecoilValue(categoryState);
-  const [touched, setTouched] = useState(false);
 
   const {
     register,
@@ -60,6 +58,7 @@ function CreateToDo() {
   } = useForm<IForm>();
 
   const handleValid = (data: IForm) => {
+    console.log('hi');
     setValue('toDo', '');
     setToDos((prevToDos) => [
       { text: data.toDo, id: Date.now(), category },
@@ -73,9 +72,8 @@ function CreateToDo() {
           required: 'Pease Write a To Do',
         })}
         placeholder='Write a to do'
-        onChange={() => setTouched(true)}
       />
-      {touched && <button>Add</button>}
+      <button>Add</button>
       <br />
       <span>{errors.toDo?.message}</span>
     </InputForm>
