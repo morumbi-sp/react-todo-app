@@ -3,6 +3,7 @@ import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { toDoSelector } from '../atoms';
 import ThemeBtn from '../Btn/ThemeBtn';
+import CreateCategory from './CreateCategory';
 import CreateToDo from './CreateToDo';
 import ToDo from './ToDo';
 
@@ -32,15 +33,13 @@ const Category = styled.h1`
 function ToDoList() {
   const [listToDo, listDoing, listDone] = useRecoilValue(toDoSelector);
 
-  const addNewCategoryHandler = () => {};
-
   return (
     <Container>
       <Header>
         <Title>To Do List</Title>
         <ThemeBtn />
       </Header>
-      <button>New Category</button>
+      <CreateCategory />
       <hr />
       <Category>Doing</Category>
       {listDoing.map((toDo) => (
