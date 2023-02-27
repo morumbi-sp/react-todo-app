@@ -1,16 +1,16 @@
 import React from 'react';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { categories, IToDo, toDoState } from '../atoms';
+import { categories, categoriesState, IToDo, toDoState } from '../atoms';
 
 const ToDoBox = styled.li`
   background-color: ${(props) => props.theme.boxColor};
   display: flex;
-  padding: 1rem;
+  padding: 5px 10px 10px 15px;
+  flex-direction: column;
   justify-content: space-between;
-  align-items: center;
   color: ${(props) => props.theme.textColor};
-  height: 3rem;
+  height: 4rem;
   margin-bottom: 15px;
   border-radius: 10px;
   box-shadow: 0 0.2rem 0.5rem ${(props) => props.theme.shadowColor};
@@ -29,20 +29,24 @@ const ToDoBox = styled.li`
     color: ${(props) => props.theme.accentColor};
     box-shadow: 0 0.2rem 0.75rem ${(props) => props.theme.shadowHoverColor};
   }
+  span {
+    margin-bottom: 4px;
+  }
 `;
 
 const BtnTabs = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  margin-left: auto;
 `;
 
 const Btn = styled.button<{ isActive?: boolean }>`
   text-align: center;
   text-transform: uppercase;
+  min-width: 50px;
   border: none;
-  height: 2rem;
+  height: 17px;
   color: ${(props) => props.theme.textColor};
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 400;
   background-color: ${(props) =>
     props.isActive ? props.theme.accentColor : props.theme.boxColor};
@@ -69,6 +73,7 @@ const Btn = styled.button<{ isActive?: boolean }>`
 
 function ToDo({ text, category, id }: IToDo) {
   const setToDos = useSetRecoilState(toDoState);
+  const categories = useRecoilValue(categoriesState);
   const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     const {
       currentTarget: { name },
@@ -84,11 +89,21 @@ function ToDo({ text, category, id }: IToDo) {
   const onDeleteHandler = () => {
     setToDos((prevToDos) => prevToDos.filter((toDo) => toDo.id !== id));
   };
+  console.log(categories);
   return (
     <ToDoBox>
       <span>{text}</span>
       <BtnTabs>
-        {category !== categories.TO_DO && (
+        {categories.map(
+          (item) =>
+            category !== item && (
+              <Btn name={item} onClick={onClick}>
+                {item}
+              </Btn>
+            )
+        )}
+
+        {/* {category !== categories.TO_DO && (
           <Btn name={categories.TO_DO} onClick={onClick}>
             To do
           </Btn>
@@ -102,7 +117,7 @@ function ToDo({ text, category, id }: IToDo) {
           <Btn name={categories.DONE} onClick={onClick}>
             Done
           </Btn>
-        )}
+        )} */}
         <Btn onClick={onDeleteHandler}>Del</Btn>
       </BtnTabs>
     </ToDoBox>

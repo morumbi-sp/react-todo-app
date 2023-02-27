@@ -48,8 +48,6 @@ interface IForm {
 
 function CreateCategory() {
   const setCategory = useSetRecoilState(categoriesState);
-  const category = useRecoilValue(categoryState);
-  const categories = useRecoilValue(categoriesState);
 
   const {
     register,
@@ -67,8 +65,6 @@ function CreateCategory() {
   const onSubmit: SubmitHandler<IForm> = (data) => {
     handleValid(data.category);
   };
-
-  console.log(categories);
 
   return (
     <InputForm onSubmit={handleSubmit(onSubmit)}>
