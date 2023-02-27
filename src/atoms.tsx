@@ -5,6 +5,15 @@ const { persistAtom } = recoilPersist({
   key: 'todoLocal-persist',
   storage: localStorage,
 });
+const { persistAtom: categoryData } = recoilPersist({
+  key: 'categoryLocal-persist',
+  storage: localStorage,
+});
+
+export const isDarkAtom = atom({
+  key: 'isDark',
+  default: false,
+});
 
 export enum categories {
   'TO_DO' = 'TO_DO',
@@ -15,12 +24,24 @@ export enum categories {
 export interface IToDo {
   text: string;
   id: number;
-  category: categories;
+  category: string;
 }
 
 export const categoryState = atom<categories>({
   key: 'category',
   default: categories.TO_DO,
+});
+
+const categoriesFromLocalStorage = JSON.parse(
+  localStorage.getItem('categoriesState') || '[]'
+);
+
+export const categoriesState = atom<string[]>({
+  key: 'categoriesState',
+  default: categoriesFromLocalStorage.length
+    ? categoriesFromLocalStorage
+    : Object.values(categories),
+  effects_UNSTABLE: [categoryData],
 });
 
 export const toDoState = atom<IToDo[]>({
@@ -33,7 +54,6 @@ export const toDoSelector = selector({
   key: 'toDoSelector',
   get: ({ get }) => {
     const toDos = get(toDoState);
-    // const category = get(categoryState);
     const listToDo = toDos.filter((toDo) => toDo.category === categories.TO_DO);
     const listDoing = toDos.filter(
       (toDo) => toDo.category === categories.DOING
@@ -42,9 +62,4 @@ export const toDoSelector = selector({
 
     return [listToDo, listDoing, listDone];
   },
-});
-
-export const isDarkAtom = atom({
-  key: 'isDark',
-  default: false,
 });
