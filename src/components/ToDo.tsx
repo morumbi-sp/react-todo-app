@@ -96,7 +96,7 @@ function ToDo({ text, category, id }: IToDo) {
         {categories.map(
           (item) =>
             category !== item && (
-              <Btn name={item} onClick={onClick}>
+              <Btn key={item} name={item} onClick={onClick}>
                 {item}
               </Btn>
             )

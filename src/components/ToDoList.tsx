@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { categoriesEnum, categoriesState, toDoSelector } from '../atoms';
+import { categoriesEnum, toDoSelector } from '../atoms';
 import ThemeBtn from '../Btn/ThemeBtn';
 import CreateCategory from './CreateCategory';
 import CreateToDo from './CreateToDo';
@@ -58,13 +58,13 @@ function ToDoList() {
 
       {customCategories.map((category) => {
         return (
-          <>
+          <div key={category}>
             <hr />
-            <Category key={category}>{category}</Category>
+            <Category>{category}</Category>
             {toDosObj[category].map((toDo) => (
               <ToDo key={toDo.id} {...toDo} />
             ))}
-          </>
+          </div>
         );
       })}
 
@@ -78,10 +78,3 @@ function ToDoList() {
 }
 
 export default ToDoList;
-
-// 1. add delete Btn [✅]
-// 2. save toDoState in the localStorage[✅]
-// 3. load from localStorage[✅]
-// additional ->
-// 4. add Dark, light theme[✅]
-// 5. add custom category function.
