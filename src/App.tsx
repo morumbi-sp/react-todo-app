@@ -1,6 +1,9 @@
 import React from 'react';
-import { createGlobalStyle } from 'styled-components';
+import { useRecoilValue } from 'recoil';
+import { createGlobalStyle, ThemeProvider } from 'styled-components';
+import { isDarkAtom } from './atoms';
 import ToDoList from './components/ToDoList';
+import { darkTheme, lightTheme } from './theme';
 
 const GlobalStyle = createGlobalStyle`
 html, body, div, span, applet, object, iframe,
@@ -58,14 +61,18 @@ a{
 *{
   box-sizing: border-box;
 }
+ul {
+  list-style: none;
+}
   `;
 
 function App() {
+  const isDark = useRecoilValue(isDarkAtom);
   return (
-    <>
+    <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
       <GlobalStyle />
       <ToDoList />
-    </>
+    </ThemeProvider>
   );
 }
 

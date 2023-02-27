@@ -1,7 +1,10 @@
 import { atom, selector } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
 
-const { persistAtom } = recoilPersist();
+const { persistAtom } = recoilPersist({
+  key: 'todoLocal-persist',
+  storage: localStorage,
+});
 
 export enum categories {
   'TO_DO' = 'TO_DO',
@@ -39,4 +42,9 @@ export const toDoSelector = selector({
 
     return [listToDo, listDoing, listDone];
   },
+});
+
+export const isDarkAtom = atom({
+  key: 'isDark',
+  default: false,
 });
