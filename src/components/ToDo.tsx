@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { categories, categoriesState, IToDo, toDoState } from '../atoms';
+import { categoriesEnum, categoriesState, IToDo, toDoState } from '../atoms';
 
 const ToDoBox = styled.li`
   background-color: ${(props) => props.theme.boxColor};
@@ -102,22 +102,6 @@ function ToDo({ text, category, id }: IToDo) {
               </Btn>
             )
         )}
-
-        {/* {category !== categories.TO_DO && (
-          <Btn name={categories.TO_DO} onClick={onClick}>
-            To do
-          </Btn>
-        )}
-        {category !== categories.DOING && (
-          <Btn name={categories.DOING} onClick={onClick}>
-            Doing
-          </Btn>
-        )}
-        {category !== categories.DONE && (
-          <Btn name={categories.DONE} onClick={onClick}>
-            Done
-          </Btn>
-        )} */}
         <Btn onClick={onDeleteHandler}>Del</Btn>
       </BtnTabs>
     </ToDoBox>

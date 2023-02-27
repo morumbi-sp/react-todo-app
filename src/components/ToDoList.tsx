@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { toDoSelector } from '../atoms';
+import { categoriesEnum, categoriesState, toDoSelector } from '../atoms';
 import ThemeBtn from '../Btn/ThemeBtn';
 import CreateCategory from './CreateCategory';
 import CreateToDo from './CreateToDo';
@@ -31,7 +31,9 @@ const Category = styled.h1`
 `;
 
 function ToDoList() {
-  const [listToDo, listDoing, listDone] = useRecoilValue(toDoSelector);
+  const toDosObj = useRecoilValue(toDoSelector);
+  const categories = useRecoilValue(categoriesState);
+  console.log(toDosObj);
 
   return (
     <Container>
@@ -41,20 +43,24 @@ function ToDoList() {
       </Header>
       <CreateCategory />
       <hr />
+
       <Category>Doing</Category>
-      {listDoing.map((toDo) => (
+      {toDosObj[categoriesEnum.DOING].map((toDo) => (
         <ToDo key={toDo.id} {...toDo} />
       ))}
       <hr />
-      {/* <SelectCategory /> */}
+
       <Category>To Dos</Category>
       <CreateToDo />
-      {listToDo.map((toDo) => (
+      {toDosObj[categoriesEnum.TO_DO].map((toDo) => (
         <ToDo key={toDo.id} {...toDo} />
       ))}
+
+      {}
+
       <hr />
       <Category>Done</Category>
-      {listDone.map((toDo) => (
+      {toDosObj[categoriesEnum.DONE].map((toDo) => (
         <ToDo key={toDo.id} {...toDo} />
       ))}
     </Container>
@@ -67,5 +73,5 @@ export default ToDoList;
 // 2. save toDoState in the localStorage[✅]
 // 3. load from localStorage[✅]
 // additional ->
-// 4. add Dark, light theme
+// 4. add Dark, light theme[✅]
 // 5. add custom category function.

@@ -15,7 +15,7 @@ export const isDarkAtom = atom({
   default: false,
 });
 
-export enum categories {
+export enum categoriesEnum {
   'TO_DO' = 'TO_DO',
   'DOING' = 'DOING',
   'DONE' = 'DONE',
@@ -27,21 +27,14 @@ export interface IToDo {
   category: string;
 }
 
-export const categoryState = atom<categories>({
+export const categoryState = atom<categoriesEnum>({
   key: 'category',
-  default: categories.TO_DO,
+  default: categoriesEnum.TO_DO,
 });
-
-// const categoriesFromLocalStorage = JSON.parse(
-//   localStorage.getItem('categoriesState') || '[]'
-// );
 
 export const categoriesState = atom<string[]>({
   key: 'categoriesState',
-  default: Object.values(categories),
-  // default: categoriesFromLocalStorage.length
-  //   ? categoriesFromLocalStorage
-  //   : Object.values(categories),
+  default: Object.values(categoriesEnum),
   effects_UNSTABLE: [categoryData],
 });
 
@@ -55,12 +48,19 @@ export const toDoSelector = selector({
   key: 'toDoSelector',
   get: ({ get }) => {
     const toDos = get(toDoState);
-    const listToDo = toDos.filter((toDo) => toDo.category === categories.TO_DO);
-    const listDoing = toDos.filter(
-      (toDo) => toDo.category === categories.DOING
-    );
-    const listDone = toDos.filter((toDo) => toDo.category === categories.DONE);
+    const categories = get(categoriesState);
+    let listObj: { [key: string]: IToDo[] } = {};
+    categories.forEach((category) => {
+      const sortedList = toDos.filter((toDo) => toDo.category === category);
+      listObj[category] = sortedList;
+    });
 
-    return [listToDo, listDoing, listDone];
+    // const listToDo = toDos.filter((toDo) => toDo.category === categories.TO_DO);
+    // const listDoing = toDos.filter(
+    //   (toDo) => toDo.category === categories.DOING
+    // );
+    // const listDone = toDos.filter((toDo) => toDo.category === categories.DONE);
+
+    return listObj;
   },
 });
