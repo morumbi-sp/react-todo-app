@@ -42,6 +42,12 @@ const InputBox = styled.input`
   background-color: ${(props) => props.theme.boxColor};
 `;
 
+const Icon = styled.span`
+  font-size: 25;
+  font-weight: 500;
+  color: ${(props) => props.theme.accentColor};
+`;
+
 interface IForm {
   category: string;
 }
@@ -52,7 +58,6 @@ function CreateCategory() {
   const { register, handleSubmit, setValue } = useForm<IForm>();
 
   const handleValid = (data: string) => {
-    console.log('hi');
     setValue('category', '');
     setCategory((prevCategory) => [data, ...prevCategory]);
   };
@@ -70,7 +75,9 @@ function CreateCategory() {
         placeholder='Create new Category'
       />
 
-      <button>Add</button>
+      <button>
+        <Icon className='material-symbols-outlined'>add_circle</Icon>
+      </button>
       <br />
     </InputForm>
   );

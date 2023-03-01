@@ -64,6 +64,10 @@ a{
 ul {
   list-style: none;
 }
+button{
+  border: none;
+  background-color: transparent;
+}
   `;
 
 function App() {

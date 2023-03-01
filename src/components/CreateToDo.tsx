@@ -46,6 +46,12 @@ interface IForm {
   toDo: string;
 }
 
+const Icon = styled.span`
+  font-size: 25;
+  font-weight: 500;
+  color: ${(props) => props.theme.accentColor};
+`;
+
 function CreateToDo() {
   const setToDos = useSetRecoilState(toDoState);
   const category = useRecoilValue(categoryState);
@@ -53,7 +59,6 @@ function CreateToDo() {
   const { register, handleSubmit, setValue } = useForm<IForm>();
 
   const handleValid = (data: IForm) => {
-    console.log('hi');
     setValue('toDo', '');
     setToDos((prevToDos) => [
       { text: data.toDo, id: Date.now(), category },
@@ -69,7 +74,9 @@ function CreateToDo() {
         placeholder='Write a to do'
       />
 
-      <button>Add</button>
+      <button>
+        <Icon className='material-symbols-outlined'>add_circle</Icon>
+      </button>
       <br />
     </InputForm>
   );

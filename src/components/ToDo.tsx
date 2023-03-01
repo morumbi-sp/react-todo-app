@@ -43,7 +43,6 @@ const Btn = styled.button<{ isActive?: boolean }>`
   text-align: center;
   text-transform: uppercase;
   min-width: 50px;
-  border: none;
   height: 17px;
   color: ${(props) => props.theme.textColor};
   font-size: 11px;
